@@ -29,6 +29,43 @@ All tools are free, ensuring accessibility and scalability without cost barriers
 
 ---
 
+## 📂 Project Folder Structure
+```bash
+smart-api-doc-generator/
+│   .env                  # Environment variables (excluded via .gitignore)
+│   .gitignore            # Ignore sensitive files and build artifacts
+│   package.json          # Dependencies and scripts
+│   README.md             # Project overview and documentation
+│   server.js             # Entry point
+│
+├── images/               # Visual assets for README
+│   ├── header.png
+│   ├── footer.png
+│   ├── portfolio-highlight1.png
+│   └── portfolio-highlight2.png
+│
+├── scripts/              # Utility scripts
+│   ├── seed.js
+│   └── test-db.js
+│
+├── src/                  # Application source code
+│   ├── app.js
+│   ├── api/
+│   │   ├── controllers/  # Business logic
+│   │   ├── middleware/   # JWT validation
+│   │   ├── routes/       # API endpoints
+│   │   └── services/     # Redis, PDF, Email, LLM
+│   ├── config/           # DB, Redis, Env configs
+│   ├── jobs/             # Background/cron jobs
+│   └── models/           # Database schemas
+│
+└── tests/                # Unit tests
+├── auth.test.js
+└── docs.test.js
+
+```
+---
+
 ## ⚙️ Implementation Details
 - **API Endpoints** → CRUD routes for users, authentication, and documentation management.  
 - **Database** → PostgreSQL integration for persistent storage of users and specs.  
@@ -37,6 +74,25 @@ All tools are free, ensuring accessibility and scalability without cost barriers
 - **Reporting** → PDF generation and email delivery services for sharing documentation.  
 - **Caching** → Redis integration for fast retrieval of frequently accessed docs.  
 - **LLM Integration** → OpenAI API used to enhance documentation with AI‑generated summaries.  
+
+---
+
+
+## 🚀 Implementation Walkthrough
+
+Here’s one complete flow: Upload → Generate → Retrieve
+
+1. **Upload Spec** → `POST /api/specs` (JWT protected)
+2. **Background Job** → Cron triggers `generateDocs.job.js`
+3. **LLM Integration** → Draft generated via `llm.service.js`
+4. **Caching & Reporting** → Redis + PDF/Email services
+5. **Retrieve Docs** → `GET /api/docs/:id`
+
+![Swagger UI](images/swagger-ui.jpeg)
+
+📎 Additional artifact: A full expanded view of the Swagger UI endpoints is also available as a PDF in the repo:  
+[`images/swagger-ui.pdf`](images/swagger-ui.pdf)
+
 
 ---
 
@@ -135,3 +191,7 @@ This project is practical, portfolio‑ready, and showcases my ability to design
 ---
 
 ![Footer](images/footer.png)
+
+---
+
+© 2026 FlyRank AI Internship | All Rights Reserved.

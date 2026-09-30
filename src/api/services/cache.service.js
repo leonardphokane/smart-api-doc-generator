@@ -1,32 +1,17 @@
 // src/api/services/cache.service.js
-const redisClient = require('../../config/redis');
+// Redis disabled: safe fallback stubs
 
 exports.setCache = async (key, value, ttl = 3600) => {
-  try {
-    await redisClient.set(key, JSON.stringify(value), { EX: ttl });
-    return `Cached ${key}`;
-  } catch (err) {
-    console.error(`❌ Error caching ${key}:`, err);
-    throw err;
-  }
+  console.log(`⚠️ Redis disabled — skipping cache set for ${key}`);
+  return null;
 };
 
 exports.getCache = async (key) => {
-  try {
-    const data = await redisClient.get(key);
-    return data ? JSON.parse(data) : null;
-  } catch (err) {
-    console.error(`❌ Error retrieving ${key}:`, err);
-    throw err;
-  }
+  console.log(`⚠️ Redis disabled — skipping cache get for ${key}`);
+  return null;
 };
 
 exports.deleteCache = async (key) => {
-  try {
-    await redisClient.del(key);
-    return `Deleted cache for ${key}`;
-  } catch (err) {
-    console.error(`❌ Error deleting ${key}:`, err);
-    throw err;
-  }
+  console.log(`⚠️ Redis disabled — skipping cache delete for ${key}`);
+  return null;
 };
